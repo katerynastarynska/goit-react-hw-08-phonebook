@@ -1,20 +1,17 @@
 import PropTypes from 'prop-types';
-import { toast } from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { deleteContact } from 'redux/operations';
 
-import { useDeleteContactMutation } from 'redux/contactsAPI';
 import css from './ContactListItem.module.css';
 
 export default function ContactListItem({ name, number, id }) {
-  const [deleteContact, result] = useDeleteContactMutation();
+  const dispatch = useDispatch();
 
-  const handleDeleteContact = async () => {
-    await deleteContact(id);
-    toast.success(`${name} successfully removed from your phonebook!`);
+  const handleDeleteContact = () => {
+    dispatch(deleteContact(id));
   };
 
   return (
-    <>
-    {result.isLoading && <p>Deleting...</p>}
     <div className={css.contactListItemWrap}>
       <p className={css.contactListText}>
         {name}: {number}
@@ -26,8 +23,6 @@ export default function ContactListItem({ name, number, id }) {
         Delete
       </button>
     </div>
-    </>
-    
   );
 }
 

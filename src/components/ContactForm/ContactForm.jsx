@@ -1,16 +1,16 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
 import { toast, Toaster } from 'react-hot-toast';
 
+import { addNewContact } from 'redux/operations';
+import { selectContacts } from 'redux/selectors';
 import css from './ContactForm.module.css';
-import {
-  useAddContactMutation,
-  useFetchContactsQuery,
-} from 'redux/contactsAPI';
 
 const ContactForm = () => {
-  const { data: contacts } = useFetchContactsQuery();
-  const [addContact] = useAddContactMutation();
+  const dispatch = useDispatch();
+
+  const items = useSelector(selectContacts);
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
@@ -34,7 +34,7 @@ const ContactForm = () => {
     }
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = e => {
     e.preventDefault();
     const form = e.currentTarget;
     const name = form.elements.name.value;
@@ -44,7 +44,7 @@ const ContactForm = () => {
       return;
     }
 
-    const isContactExist = contacts?.some(
+    const isContactExist = items.some(
       item => item.name.toLowerCase() === name.toLowerCase()
     );
     if (!isContactExist) {
@@ -52,7 +52,7 @@ const ContactForm = () => {
         name,
         number,
       };
-      await addContact(newContact);
+      dispatch(addNewContact(newContact));
       toast.success(`${newContact.name} successfully added to your phonebook!`);
     } else {
       toast.error(`${name} is already in contacts`);
@@ -96,7 +96,6 @@ const ContactForm = () => {
           },
         }}
       />
-
       <form className={css.contactForm} onSubmit={handleSubmit}>
         <label className={css.labelForm} htmlFor={nameInputId}>
           Name

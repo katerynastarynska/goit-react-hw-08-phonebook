@@ -7,18 +7,38 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { logInUser } from 'redux/auth/authOperations';
+import { useNavigate } from 'react-router-dom';
+import { selectIsLoggedIn } from 'redux/auth/authSelectors';
+import { useEffect } from 'react';
+
 
 const defaultTheme = createTheme();
-
 const Login = () => {
-  const handleSubmit = event => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+  const isLoggedIn = useSelector(selectIsLoggedIn)
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    dispatch(
+      logInUser({
+        email: form.elements.email.value,
+        password: form.elements.password.value,
+      })
+    );
+    form.reset();
   };
+
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate('/contacts'); 
+    } 
+  }, [ navigate, isLoggedIn]);
+
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -100,6 +120,6 @@ const Login = () => {
       </Grid>
     </ThemeProvider>
   );
-}
+};
 
 export default Login;

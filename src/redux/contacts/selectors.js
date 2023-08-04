@@ -12,3 +12,4 @@ export const selectFilteredContacts = createSelector(
             .includes(filter.toLowerCase()))
     }
 )
+

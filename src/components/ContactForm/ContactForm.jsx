@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
-import { toast, Toaster } from 'react-hot-toast';
+import { toast,  } from 'react-hot-toast';
+import { addNewContact } from 'redux/contacts/operations';
+import { selectContacts } from 'redux/contacts/selectors';
 
-import { addNewContact } from 'redux/operations';
-import { selectContacts } from 'redux/selectors';
-import css from './ContactForm.module.css';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 const ContactForm = () => {
   const dispatch = useDispatch();
@@ -49,6 +52,7 @@ const ContactForm = () => {
     );
     if (!isContactExist) {
       const newContact = {
+        id: nanoid(),
         name,
         number,
       };
@@ -86,7 +90,7 @@ const ContactForm = () => {
 
   return (
     <>
-      <Toaster
+      {/* <Toaster
         toastOptions={{
           style: {
             border: '1px solid #713200',
@@ -95,36 +99,56 @@ const ContactForm = () => {
             backgroundColor: '#97deff24',
           },
         }}
-      />
-      <form className={css.contactForm} onSubmit={handleSubmit}>
-        <label className={css.labelForm} htmlFor={nameInputId}>
-          Name
-        </label>
-        <input
-          className={css.inpurForm}
-          type="text"
-          name="name"
-          value={name}
-          id={nameInputId}
-          required
-          onChange={handleInputChange}
-        />
-        <label className={css.labelForm} htmlFor={numberInputId}>
-          Number
-        </label>
-        <input
-          className={css.inpurForm}
-          type="tel"
-          name="number"
-          value={number}
-          id={numberInputId}
-          required
-          onChange={handleInputChange}
-        />
-        <button className={css.formBtn} type="submit">
+      /> */}
+
+      <Box
+        sx={{
+          my: 4,
+          mx: 4,
+          mb: 4,
+          mt: 0,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Typography component="h1" variant="h5">
           Add contact
-        </button>
-      </form>
+        </Typography>
+        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }} color='#1a6bc7'>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            value={name}
+            id={nameInputId}
+            label="Name"
+            name="name"
+            autoComplete="name"
+            autoFocus
+            onChange={handleInputChange}
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="number"
+            label="Phone number"
+            value={number}
+            id={numberInputId}
+            autoComplete="number"
+            onChange={handleInputChange}
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Add contact
+          </Button>
+        </Box>
+      </Box>
     </>
   );
 };

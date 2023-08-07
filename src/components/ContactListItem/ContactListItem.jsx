@@ -1,7 +1,5 @@
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { deleteContact } from 'redux/contacts/operations';
-
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -10,29 +8,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-// import css from './ContactListItem.module.css';
-
-// export default function ContactListItem({ name, number, id }) {
-//   const dispatch = useDispatch();
-
-//   const handleDeleteContact = () => {
-//     dispatch(deleteContact(id));
-//   };
-
-//   return (
-//     <div className={css.contactListItemWrap}>
-//       <p className={css.contactListText}>
-//         {name}: {number}
-//       </p>
-//       <button
-//         className={css.contactListBtn}
-//         onClick={() => handleDeleteContact(id)}
-//       >
-//         Delete
-//       </button>
-//     </div>
-//   );
-// }
+import { deleteContact } from 'redux/contacts/operations';
 
 export default function ContactListItem({ name, number, id }) {
   const dispatch = useDispatch();
@@ -77,9 +53,6 @@ export default function ContactListItem({ name, number, id }) {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button variant="outlined" size="small">
-              Edit
-            </Button>
             <Button
               variant="outlined"
               size="small"

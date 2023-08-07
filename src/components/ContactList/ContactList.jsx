@@ -4,47 +4,26 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import CssBaseline from '@mui/material/CssBaseline';
-// import css from './ContactList.module.css';
 
 import ContactListItem from 'components/ContactListItem/ContactListItem';
 
-// export default function ContactList() {
-//   const filteredContacts = useSelector(selectFilteredContacts);
+const ContactList = () => {
+  const filteredContacts = useSelector(selectFilteredContacts);
 
-  // return (
-  //   <ul className={css.contactList}>
-  //     {filteredContacts.map(({ name, number, id }) => (
-  //       <li className={css.contactListItem} key={id}>
-  //         <ContactListItem
-  //           name={name}
-  //           number={number}
-  //           onDeleteContact={filteredContacts}
-  //           id={id}
-  //         />
-  //       </li>
-  //     ))}
-  //   </ul>
-  // );
-
-
-
-  const ContactList = () => {
-    const filteredContacts = useSelector(selectFilteredContacts);
-  
-    const defaultTheme = createTheme({
-      palette: {
-        primary: {
-          main: '#074a97',
-        },
-        text: {
-          primary: '#074a97',
-        },
+  const defaultTheme = createTheme({
+    palette: {
+      primary: {
+        main: '#074a97',
       },
-    });
-  
-    return (
-      <>
-          <ThemeProvider theme={defaultTheme}>
+      text: {
+        primary: '#074a97',
+      },
+    },
+  });
+
+  return (
+    <>
+      <ThemeProvider theme={defaultTheme}>
         <CssBaseline />
         <main>
           <Container sx={{ py: 8 }} maxWidth="md">
@@ -63,8 +42,8 @@ import ContactListItem from 'components/ContactListItem/ContactListItem';
           </Container>
         </main>
       </ThemeProvider>
-      </>
-    );
-  };
-  
-  export default ContactList;
+    </>
+  );
+};
+
+export default ContactList;

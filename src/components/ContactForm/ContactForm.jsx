@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
-import { toast,  } from 'react-hot-toast';
-import { addNewContact } from 'redux/contacts/operations';
-import { selectContacts } from 'redux/contacts/selectors';
-
+import { toast } from 'react-hot-toast';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+
+import { addNewContact } from 'redux/contacts/operations';
+import { selectContacts } from 'redux/contacts/selectors';
 
 const ContactForm = () => {
   const dispatch = useDispatch();
@@ -90,17 +90,6 @@ const ContactForm = () => {
 
   return (
     <>
-      {/* <Toaster
-        toastOptions={{
-          style: {
-            border: '1px solid #713200',
-            padding: '10px',
-            color: '#0d55a7',
-            backgroundColor: '#97deff24',
-          },
-        }}
-      /> */}
-
       <Box
         sx={{
           my: 4,
@@ -115,7 +104,12 @@ const ContactForm = () => {
         <Typography component="h1" variant="h5">
           Add contact
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }} color='#1a6bc7'>
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          sx={{ mt: 1 }}
+          color="#1a6bc7"
+        >
           <TextField
             margin="normal"
             required

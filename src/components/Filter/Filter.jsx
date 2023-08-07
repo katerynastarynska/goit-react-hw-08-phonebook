@@ -1,11 +1,9 @@
 import { useDispatch } from 'react-redux';
-import { filterContactsByName } from 'redux/contacts/FilterSlice';
-
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-// import css from './Filter.module.css';
+import { filterContactsByName } from 'redux/contacts/FilterSlice';
 
 export default function Filter() {
   const dispatch = useDispatch();

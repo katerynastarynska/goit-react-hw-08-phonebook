@@ -5,20 +5,13 @@ import Navigation from './Navigation';
 import AuthNavigation from './AuthNavigation';
 import UserMenu from './UserMenu';
 
-
 const AppBar = () => {
-
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
   return (
     <>
       <Navigation />
-       {isLoggedIn 
-      //  &&
-        ?  <UserMenu />
-        : 
-        <AuthNavigation />
-       }
+      {isLoggedIn ? <UserMenu /> : <AuthNavigation />}
     </>
   );
 };

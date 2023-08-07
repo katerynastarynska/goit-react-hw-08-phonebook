@@ -1,11 +1,12 @@
 import { registerNewUser, logInUser, logOut, refreshCurrentUser } from './authOperations';
 
-const { createSlice, isAnyOf } = require("@reduxjs/toolkit")
+const { createSlice, isAnyOf } = require("@reduxjs/toolkit");
 
 const initialState = {
     user: { name: null, email: null },
     token: null,
     isLoggedIn: false,
+    isRefreshing: false,
 };
 
 const handleFulfilled = (state, action) => {
@@ -21,16 +22,24 @@ const handleFulFilledLogOut = (state) => {
 const handleFulfilledRefreshCurrentUser = (state, action) => {
     state.user = action.payload;
     state.isLoggedIn = true;
+    state.isRefreshing = false;
 }
+const handlePendingRefreshCurrentUser = (state) => {
+    state.isRefreshing = true;
+}
+const handleRejectedRefreshCurrentUser = (state) => {
+    state.isRefreshing = false;
+}
+
 const authSlice = createSlice({
     name: "auth",
     initialState,
     extraReducers: (builder) => {
         builder
             .addCase(refreshCurrentUser.fulfilled, handleFulfilledRefreshCurrentUser)
+            .addCase(refreshCurrentUser.pending, handlePendingRefreshCurrentUser)
+            .addCase(refreshCurrentUser.rejected, handleRejectedRefreshCurrentUser)
             .addCase(logOut.fulfilled, handleFulFilledLogOut)
-            // .addCase(registerNewUser.fulfilled, handleFulfilled)
-            // .addCase(logInUser.fulfilled, handleFulfilled)
             .addMatcher(isAnyOf(registerNewUser.fulfilled,
                 logInUser.fulfilled), handleFulfilled)
 
